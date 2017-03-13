@@ -45,7 +45,7 @@ module.exports = function makeWebpackConfig(env) {
 	    }));
 		plugins.push(new OptimizeJsPlugin({ sourceMap: false }));
 	} else {
-		devtool = 'source-map';
+		devtool = 'eval';
 		distPath = path.join(__dirname, '/static');
 		outputFilename = 'js/[name]-[hash].js'
 		plugins.push(new webpack.HotModuleReplacementPlugin());
