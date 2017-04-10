@@ -106,7 +106,22 @@ module.exports = function makeWebpackConfig(env) {
 	      exclude: /node_modules/,
 				use: ExtractTextPlugin.extract({
 					fallback: 'style-loader',
-					use: 'css-loader?modules&camelCase&importLoaders=1&localIdentName=[local]_[hash:base64:5]!postcss-loader!sass-loader?outputStyle=compact',
+					use: [
+						'css-loader?modules&camelCase&importLoaders=1&localIdentName=[local]_[hash:base64:5]',
+						{
+							loader: 'postcss-loader',
+							options: {
+								ident: 'postcss',
+								plugins: () => [
+									autoprefixer({
+										browsers: [ '> 5%', 'last 2 versions' ]
+									}),
+									px2rem({ remPrecision: 8 })
+                ]
+							}
+						},
+						'sass-loader?outputStyle=compact'
+					],
 					publicPath: '../'
 				})
 	    }, {
@@ -121,17 +136,6 @@ module.exports = function makeWebpackConfig(env) {
 	  },
 	  plugins: [
 			...plugins,
-			new webpack.LoaderOptionsPlugin({
-				minimize: process.env.NODE_ENV && process.env.NODE_ENV === 'production',
-				options: {
-					postcss: [
-						autoprefixer({
-							browsers: [ '> 5%', 'last 2 versions' ]
-						}),
-						px2rem({ remPrecision: 8 })
-					]
-				}
-			}),
 			new WebpackMd5Hash(),
 			new CleanWebpackPlugin(distPath, {
 	      root: __dirname,
