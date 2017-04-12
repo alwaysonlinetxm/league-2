@@ -5,7 +5,7 @@ import ActionTypes from '../constants/ActionTypes';
 const initState = Immutable({
   list: [],
   total: 0,
-  text: ''
+  text: 'lalala'
 });
 
 export default handleActions({

@@ -1,3 +1,4 @@
+// @flow
 import Component from 'inferno-component';
 import { connect } from 'inferno-redux';
 import { bindActionCreators } from 'redux';
@@ -6,6 +7,11 @@ import Actions from '../../actions/DemaxiyaActions';
 import Style from './Demaxiya.scss';
 
 class Demaxiya extends Component {
+  props: {
+    list: Array<Object>,
+    getHero: () => mixed
+  };
+
   componentWillMount() {
     this.props.getHero();
   }

@@ -1,3 +1,4 @@
+// @flow
 import Inferno from 'inferno';
 import Component from 'inferno-component';
 import { bindActionCreators } from 'redux';
@@ -6,6 +7,12 @@ import * as actions from '../actions/CommonActions';
 import './reset.scss';
 
 class Root extends Component {
+  props: {
+    children: Object,
+    actions: Object,
+    text: string
+  }
+
   render() {
     const { actions, children, text } = this.props;
 

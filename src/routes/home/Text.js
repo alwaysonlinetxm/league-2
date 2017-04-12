@@ -1,11 +1,6 @@
-import Component from 'inferno-component';
+// @flow
 
-class Text extends Component {
-  render() {
-    return (
-      <div>{ this.props.text }</div>
-    );
-  }
+// will check type by flow
+export default function Text(props: { text: string }) {
+  return <div>{props.text}</div>
 }
-
-export default Text;

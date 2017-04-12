@@ -1,3 +1,4 @@
+// @flow
 import Component from 'inferno-component';
 import { connect } from 'inferno-redux';
 import Immutable from 'seamless-immutable';
@@ -6,7 +7,28 @@ import Style from './Home.scss';
 import ActionTypes from '../../constants/ActionTypes';
 
 class Home extends Component {
+  props: {
+    list: Array<Object>,
+    text: string,
+    showText: () => mixed,
+    request: () => mixed
+  };
+
+  state: {
+    text: string
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: 'lalala'
+    };
+  }
+
   toDemaxiya = () => {
+    this.setState({
+      text: 234 // won't check type by flow
+    });
     this.context.router.push('/demaxiya');
   }
 
@@ -28,7 +50,7 @@ class Home extends Component {
       <div className={ Style.home }>
         <p onClick={ this.toDemaxiya } className={ `${Style.border} ${Style.color}` }>Home</p>
         { Immutable.asMutable(list).map((node, i) => <p key={ i }>{ node.author }</p>) }
-        <div onClick={ this.showText }>lalala</div>
+        <div onClick={ this.showText }>{ list.length }</div>
         <Text text={ text } />
       </div>
     );
